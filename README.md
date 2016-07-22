@@ -22,7 +22,7 @@ Then update your project with composer
 composer update
 ```
 
-CSV file upload to mapping
+## CSV file upload to mapping
 
 ```php
 use MaxContact\Client;
