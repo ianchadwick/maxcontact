@@ -14,6 +14,8 @@ namespace MaxContact;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\ResponseInterface;
 use MaxContact\Commands\Command;
 
 class Client
@@ -47,6 +49,16 @@ class Client
      * @var string
      */
     private $token;
+
+    /**
+     * @var RequestInterface
+     */
+    private $lastRequest;
+
+    /**
+     * @var ResponseInterface
+     */
+    private $lastResponse;
 
     /**
      * Client constructor.
@@ -118,7 +130,7 @@ class Client
      * Execute the command
      *
      * @param Command $command
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return bool
      */
     public function execute(Command $command)
     {
@@ -133,10 +145,33 @@ class Client
         $url = $command->getUrl($this->endpoint);
 
         // create the request object with the cookie
-        $request = $client->createRequest($method, $url, $command->getPayload([
+        $this->lastRequest = $client->createRequest($method, $url, $command->getPayload([
             'cookies' => $cookies
         ]));
 
-        return $client->send($request);
+        $this->lastResponse = $client->send($this->lastRequest);
+        $xml = $this->lastResponse->xml();
+
+        return (isset($xml->Success) && $xml->Success);
+    }
+
+    /**
+     * Get the last request object
+     *
+     * @return RequestInterface
+     */
+    public function getLastRequest()
+    {
+        return $this->lastRequest;
+    }
+
+    /**
+     * Get the last response object
+     *
+     * @return ResponseInterface
+     */
+    public function getLastResponse()
+    {
+        return $this->lastResponse;
     }
 }
