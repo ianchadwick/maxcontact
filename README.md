@@ -1,6 +1,28 @@
-# MaxContact
+# MaxContact PHP API
 
-Basic MaxContact lead submission
+... well csv file upload!
+
+## Requirements 
+
+PHP 5.4+
+
+## Installation using Composer
+
+Add ianchadwick/maxcontact to the require part of your composer.json file
+
+```js
+"require": {
+  "ianchadwick/maxcontact": "dev-master"
+}
+```
+
+Then update your project with composer
+
+```
+composer update
+```
+
+CSV file upload to mapping
 
 ```php
 use MaxContact\Client;
