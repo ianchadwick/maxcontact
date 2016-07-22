@@ -1,0 +1,27 @@
+{
+    "name": "ian/maxcontact",
+    "description": "MaxContact PHP API",
+    "keywords": ["api", "dialler", "outbound", "inbound"],
+    "homepage": "https://github.com/ianchadwick/maxcontact",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ian Chadwick",
+            "email": "chad@mizmoz.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MaxContact\\": "src/",
+            "MaxContact\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    }
+}
